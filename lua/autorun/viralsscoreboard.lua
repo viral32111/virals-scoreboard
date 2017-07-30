@@ -30,10 +30,10 @@ if ( CLIENT ) then
 	print("This server is running Viral's Scoreboard, Created by viral32111! (www.github.com/viral32111)")
 end
 
-hook.Add("PlayerConnect", "ViralsScoreboardVersionCheck", function( name, ip )
+hook.Add("PlayerConnect", "ViralsScoreboardVersionCheck", function()
 	if not ( ViralsScoreboardVersionChecked ) then
 		ViralsScoreboardVersionChecked = true
-		http.Fetch("https://raw.githubusercontent.com/viral32111/virals-scoreboard/master/VERSION.md",
+		http.Fetch("https://raw.githubusercontent.com/viral32111/virals-scoreboard/master/VERSION.txt",
 		function( body, len, headers, code )
 			local formattedBody = string.gsub( body, "\n", "")
 			if ( formattedBody == ViralsScoreboardVersion ) then
@@ -45,7 +45,7 @@ hook.Add("PlayerConnect", "ViralsScoreboardVersionCheck", function( name, ip )
 			end
 		end,
 		function( error )
-			MsgC( Color( 255, 0, 0 ), "[Viral's Scoreboard] Failed to get addon version\n")
+			MsgC( Color( 255, 0, 0 ), "[Viral's Scoreboard] Failed to get addon version. Retrying in 5 seconds...\n")
 		end
 		)
 	end
