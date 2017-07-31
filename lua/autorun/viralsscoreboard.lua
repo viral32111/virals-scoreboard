@@ -37,11 +37,11 @@ hook.Add("PlayerConnect", "ViralsScoreboardVersionCheck", function()
 		function( body, len, headers, code )
 			local formattedBody = string.gsub( body, "\n", "")
 			if ( formattedBody == ViralsScoreboardVersion ) then
-				MsgC( Color( 0, 255, 0 ), "[Viral's Scoreboard] You are running the most recent version of Car Keys!\n")
+				MsgC( Color( 0, 255, 0 ), "[Viral's Scoreboard] You are running the most recent version of Viral's Scoreboard!\n")
 			elseif ( formattedBody == "404: Not Found" ) then
 				MsgC( Color( 255, 0, 0 ), "[Viral's Scoreboard] Version page does not exist\n")
 			else
-				MsgC( Color( 255, 255, 0 ), "[Viral's Scoreboard] You are using outdated version of Car Keys! (Latest: " .. formattedBody .. ", Yours: " .. CarKeysVersion .. ")\n" )
+				MsgC( Color( 255, 255, 0 ), "[Viral's Scoreboard] You are using outdated version of Viral's Scoreboard! (Latest: " .. formattedBody .. ", Yours: " .. ViralsScoreboardVersion .. ")\n" )
 			end
 		end,
 		function( error )
