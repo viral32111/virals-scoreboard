@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ---------------------------------------------------------------------------]]
+
 if ( SERVER ) then return end
 include("viralsscoreboard_config.lua")
 
@@ -38,54 +39,51 @@ surface.CreateFont("ViralsScoreboardPlayerRowText", {
 })
 
 --[[-------------------------------------------------------------------------
-Setup Values from Config
----------------------------------------------------------------------------]]
-local Players = player.GetAll()
-
--- Ordering
-if ( ViralsScoreboard.Sort == "immunity" ) then -- Sort by Immunity
-	table.sort( Players, function( a, b )
-		return ViralsScoreboard.GroupImmunity[ a:GetUserGroup() ] > ViralsScoreboard.GroupImmunity[ b:GetUserGroup() ]
-	end )
-elseif ( ViralsScoreboard.Sort == "ping" ) then -- Sort by Ping
-	table.sort( Players, function( a, b )
-		return a:Ping() < b:Ping()
-	end )
-elseif ( ViralsScoreboard.Sort == "deaths" ) then -- Sort by Deaths
-	table.sort( Players, function( a, b )
-		return a:Deaths() > b:Deaths()
-	end )
-elseif ( ViralsScoreboard.Sort == "kills" ) then -- Sort by Kills
-	table.sort( Players, function( a, b )
-		return a:Frags() > b:Frags()
-	end )
-else -- Default Sort is Immunity
-	table.sort( Players, function( a, b )
-		return ViralsScoreboard.GroupImmunity[ a:GetUserGroup() ] > ViralsScoreboard.GroupImmunity[ b:GetUserGroup() ]
-	end )
-end
-
--- Title
-if ( ViralsScoreboard.Title == "" or ViralsScoreboard.Title == nil ) then
-	ScoreboardTitle = GetHostName()
-else
-	ScoreboardTitle = ViralsScoreboard.Title
-end
-
--- Sub-Title
-if ( ViralsScoreboard.SubTitle == "" or ViralsScoreboard.SubTitle == nil ) then
-	ScoreboardSubTitle = game.GetMap()
-else
-	ScoreboardSubTitle = ViralsScoreboard.SubTitle
-end
-
---[[-------------------------------------------------------------------------
 Scoreboard
 ---------------------------------------------------------------------------]]
 local DefaultRowColor = Color( 165, 165, 165 )
 local ColorDifference = 30
 
 function ViralsScoreboard:show()
+	local Players = player.GetAll()
+
+	-- Ordering
+	if ( ViralsScoreboard.Sort == "immunity" ) then -- Sort by Immunity
+		table.sort( Players, function( a, b )
+			return ViralsScoreboard.GroupImmunity[ a:GetUserGroup() ] > ViralsScoreboard.GroupImmunity[ b:GetUserGroup() ]
+		end )
+	elseif ( ViralsScoreboard.Sort == "ping" ) then -- Sort by Ping
+		table.sort( Players, function( a, b )
+			return a:Ping() < b:Ping()
+		end )
+	elseif ( ViralsScoreboard.Sort == "deaths" ) then -- Sort by Deaths
+		table.sort( Players, function( a, b )
+			return a:Deaths() > b:Deaths()
+		end )
+	elseif ( ViralsScoreboard.Sort == "kills" ) then -- Sort by Kills
+		table.sort( Players, function( a, b )
+			return a:Frags() > b:Frags()
+		end )
+	else -- Default Sort is Immunity
+		table.sort( Players, function( a, b )
+			return ViralsScoreboard.GroupImmunity[ a:GetUserGroup() ] > ViralsScoreboard.GroupImmunity[ b:GetUserGroup() ]
+		end )
+	end
+
+	-- Title
+	if ( ViralsScoreboard.Title == "" or ViralsScoreboard.Title == nil ) then
+		ScoreboardTitle = GetHostName()
+	else
+		ScoreboardTitle = ViralsScoreboard.Title
+	end
+
+	-- Sub-Title
+	if ( ViralsScoreboard.SubTitle == "" or ViralsScoreboard.SubTitle == nil ) then
+		ScoreboardSubTitle = game.GetMap()
+	else
+		ScoreboardSubTitle = ViralsScoreboard.SubTitle
+	end
+
 	--[[-------------------------------------------------------------------------
 	Scoreboard Title
 	---------------------------------------------------------------------------]]
@@ -117,6 +115,8 @@ function ViralsScoreboard:show()
 	ScoreboardMainScroll:Dock( FILL )
 
 	local ScoreboardMainRows = vgui.Create( "DListLayout", ScoreboardMainScroll )
+	--[[ScoreboardMainRows:SetDrawBackground( true )
+	ScoreboardMainRows:SetBackgroundColor( Color( 240, 240, 240, 100 ) ) ]]
 	ScoreboardMainRows:Dock( FILL )
 
 	if ( ViralsScoreboard.AllowDragDrop ) then

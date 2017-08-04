@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ---------------------------------------------------------------------------]]
+
 local ViralsScoreboardVersion = "1.0.0"
 local ViralsScoreboardVersionChecked = false
 
@@ -22,8 +23,8 @@ if ( SERVER ) then
 	AddCSLuaFile("viralsscoreboard_config.lua")
 	include("viralsscoreboard_config.lua")
 
-	AddCSLuaFile("autorun/client/cl_scoreboard.lua")
-	include("autorun/client/cl_scoreboard.lua")
+	AddCSLuaFile("autorun/client/cl_viralsscoreboard.lua")
+	include("autorun/client/cl_viralsscoreboard.lua")
 end
 
 if ( CLIENT ) then
