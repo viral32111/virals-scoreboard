@@ -45,6 +45,8 @@ local DefaultRowColor = Color( 165, 165, 165 )
 local ColorDifference = 30
 
 function ViralsScoreboard:show()
+	gui.EnableScreenClicker( ViralsScoreboard.AllowDragDrop )
+
 	local Players = player.GetAll()
 
 	-- Ordering
@@ -106,7 +108,7 @@ function ViralsScoreboard:show()
 	local ScoreboardMainBase = vgui.Create( "DPanel" )
 	ScoreboardMainBase:SetSize( 700, 800 )
 	ScoreboardMainBase:SetPos( ScrW()/2-(700/2), 110 )
-	ScoreboardMainBase:MakePopup()
+	-- ScoreboardMainBase:MakePopup()
 	function ScoreboardMainBase:Paint( w, h )
 		draw.RoundedBox( 0, 0, 0, w, h, Color( 255, 255, 255, 0 ) )
 	end
@@ -212,6 +214,7 @@ function ViralsScoreboard:show()
 	Scoreboard Hide Function
 	---------------------------------------------------------------------------]]
 	function ViralsScoreboard:hide()
+		gui.EnableScreenClicker( false )
 		ScoreboardMainBase:Remove()
 		ScoreboardTitleBase:Remove()
 	end
