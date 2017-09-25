@@ -38,6 +38,12 @@ surface.CreateFont("ViralsScoreboardPlayerRowText", {
 	weight = 600,
 })
 
+surface.CreateFont("ViralsScoreboardAuthor", {
+	font = "Helvetica",
+	size = 15,
+	weight = 600,
+})
+
 --[[-------------------------------------------------------------------------
 Scoreboard
 ---------------------------------------------------------------------------]]
@@ -45,7 +51,7 @@ local DefaultRowColor = Color( 165, 165, 165 )
 local ColorDifference = 30
 
 function ViralsScoreboard:show()
-	gui.EnableScreenClicker( ViralsScoreboard.AllowDragDrop )
+	gui.EnableScreenClicker( true )
 
 	local Players = player.GetAll()
 
@@ -98,8 +104,8 @@ function ViralsScoreboard:show()
 		draw.DrawText( ScoreboardTitle, "ViralsScoreboardTitle", w/2+1, 12, Color( 50, 50, 50, 200 ), TEXT_ALIGN_CENTER )
 		draw.DrawText( ScoreboardTitle, "ViralsScoreboardTitle", w/2, 11, Color( 255, 255, 255 ), TEXT_ALIGN_CENTER )
 
-		draw.DrawText( ScoreboardSubTitle, "ViralsScoreboardSubTitle", w/2+16, 47, Color( 50, 50, 50, 200 ), TEXT_ALIGN_CENTER )
-		draw.DrawText( ScoreboardSubTitle, "ViralsScoreboardSubTitle", w/2+15, 46, Color( 255, 255, 255 ), TEXT_ALIGN_CENTER )
+		draw.DrawText( ScoreboardSubTitle, "ViralsScoreboardSubTitle", w/2+16, 48, Color( 50, 50, 50, 200 ), TEXT_ALIGN_CENTER )
+		draw.DrawText( ScoreboardSubTitle, "ViralsScoreboardSubTitle", w/2+15, 47, Color( 255, 255, 255 ), TEXT_ALIGN_CENTER )
 	end
 
 	--[[-------------------------------------------------------------------------
@@ -211,12 +217,25 @@ function ViralsScoreboard:show()
 	end
 
 	--[[-------------------------------------------------------------------------
+	Author
+	---------------------------------------------------------------------------]]
+	local ScoreboardAuthor = vgui.Create( "DPanel" )
+	ScoreboardAuthor:SetSize( 310, 20 )
+	ScoreboardAuthor:SetPos( ScrW()-178, ScrH()-20 )
+	function ScoreboardAuthor:Paint( w, h )
+		draw.RoundedBox( 0, 0, 0, w, h, Color( 255, 255, 255, 0 ) )
+
+		draw.DrawText( "Copyright 2017 viral32111", "ViralsScoreboardAuthor", w/2+16, 0, Color( 50, 50, 50, 200 ), TEXT_ALIGN_RIGHT )
+		draw.DrawText( "Copyright 2017 viral32111", "ViralsScoreboardAuthor", w/2+15, 0, Color( 255, 255, 255 ), TEXT_ALIGN_RIGHT )
+	end
+	--[[-------------------------------------------------------------------------
 	Scoreboard Hide Function
 	---------------------------------------------------------------------------]]
 	function ViralsScoreboard:hide()
 		gui.EnableScreenClicker( false )
 		ScoreboardMainBase:Remove()
 		ScoreboardTitleBase:Remove()
+		ScoreboardAuthor:Remove()
 	end
 end
 
