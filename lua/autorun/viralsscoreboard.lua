@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ---------------------------------------------------------------------------]]
 
-local ViralsScoreboardVersion = "1.0.2"
+local ViralsScoreboardVersion = "1.0.3"
 local ViralsScoreboardVersionChecked = false
 
 if ( SERVER ) then

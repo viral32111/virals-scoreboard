@@ -84,5 +84,5 @@ ViralsScoreboard.Sort = "immunity" -- immunity, ping, deaths, kills
 Font Config
 ---------------------------------------------------------------------------]]
 ViralsScoreboard.TitleFont = "Helvetica" -- Custom Title Font, Default: Helvetica
-ViralsScoreboard.SubTitleFont = "Helvetica" -- Custom Sub-Title Font, Default: Helvetica -- Custom Title Font, Default: Helvetica
+ViralsScoreboard.SubTitleFont = "Helvetica" -- Custom Sub-Title Font, Default: Helvetica
 ViralsScoreboard.PlayerRowFont = "Helvetica" -- Custom Player Row Font, Default: Helvetica

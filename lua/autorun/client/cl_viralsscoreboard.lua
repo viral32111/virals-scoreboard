@@ -58,7 +58,11 @@ function ViralsScoreboard:show()
 	-- Ordering
 	if ( ViralsScoreboard.Sort == "immunity" ) then -- Sort by Immunity
 		table.sort( Players, function( a, b )
-			return ViralsScoreboard.GroupImmunity[ a:GetUserGroup() ] > ViralsScoreboard.GroupImmunity[ b:GetUserGroup() ]
+			if ( a != nil and b != nil and ViralsScoreboard.GroupImmunity[ a:GetUserGroup() ] != nil and ViralsScoreboard.GroupImmunity[ b:GetUserGroup() ] != nil ) then
+				return ViralsScoreboard.GroupImmunity[ a:GetUserGroup() ] > ViralsScoreboard.GroupImmunity[ b:GetUserGroup() ]
+			else
+				return a:Frags() > b:Frags() -- Fallback to Kills if Group Immunity is invalid
+			end
 		end )
 	elseif ( ViralsScoreboard.Sort == "ping" ) then -- Sort by Ping
 		table.sort( Players, function( a, b )
@@ -74,7 +78,11 @@ function ViralsScoreboard:show()
 		end )
 	else -- Default Sort is Immunity
 		table.sort( Players, function( a, b )
-			return ViralsScoreboard.GroupImmunity[ a:GetUserGroup() ] > ViralsScoreboard.GroupImmunity[ b:GetUserGroup() ]
+			if ( a != nil and b != nil and ViralsScoreboard.GroupImmunity[ a:GetUserGroup() ] != nil and ViralsScoreboard.GroupImmunity[ b:GetUserGroup() ] != nil ) then
+				return ViralsScoreboard.GroupImmunity[ a:GetUserGroup() ] > ViralsScoreboard.GroupImmunity[ b:GetUserGroup() ]
+			else
+				return a:Frags() > b:Frags() -- Fallback to Kills if Group Immunity is invalid
+			end
 		end )
 	end
 
@@ -146,12 +154,17 @@ function ViralsScoreboard:show()
 					BackgroundColorBase = Color( ViralsScoreboard.UserBackgroundColor[ v:SteamID() ].r - ColorDifference, ViralsScoreboard.UserBackgroundColor[ v:SteamID() ].g - ColorDifference, ViralsScoreboard.UserBackgroundColor[ v:SteamID() ].b - ColorDifference )
 				end
 			else
-				BackgroundColor = ViralsScoreboard.GroupColors[ v:GetUserGroup() ]
-				BackgroundColorBase = Color( ViralsScoreboard.GroupColors[ v:GetUserGroup() ].r - ColorDifference, ViralsScoreboard.GroupColors[ v:GetUserGroup() ].g - ColorDifference, ViralsScoreboard.GroupColors[ v:GetUserGroup() ].b - ColorDifference )
+				if ( ViralsScoreboard.GroupColors[ v:GetUserGroup() ] != nil ) then
+					BackgroundColor = ViralsScoreboard.GroupColors[ v:GetUserGroup() ]
+					BackgroundColorBase = Color( ViralsScoreboard.GroupColors[ v:GetUserGroup() ].r - ColorDifference, ViralsScoreboard.GroupColors[ v:GetUserGroup() ].g - ColorDifference, ViralsScoreboard.GroupColors[ v:GetUserGroup() ].b - ColorDifference )
+				else
+					BackgroundColor = DefaultRowColor
+					BackgroundColorBase = Color( DefaultRowColor.r - 30, DefaultRowColor.g - 30, DefaultRowColor.b - 30 )
+				end
 			end
 
-			draw.RoundedBoxEx( 4, 0, 40, w, 5, BackgroundColorBase or DefaultRowColor, false, false, true, true )
-			draw.RoundedBoxEx( 4, 0, 0, w, 40, BackgroundColor or DefaultRowColor, true, true, false, false )
+			draw.RoundedBoxEx( 4, 0, 40, w, 5, BackgroundColorBase, false, false, true, true )
+			draw.RoundedBoxEx( 4, 0, 0, w, 40, BackgroundColor, true, true, false, false )
 
 			if ( v:Alive() ) then
 				NameColor = ViralsScoreboard.AliveColor or Color( 255, 255, 255 )
