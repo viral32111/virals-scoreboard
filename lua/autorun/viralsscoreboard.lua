@@ -20,7 +20,7 @@ if ( SERVER ) then
 	print("[Viral's Scoreboard] Loaded Version: " .. Version )
 
 	util.AddNetworkString("ViralsScoreboardAdmin")
-	util.AddNetworkString("ViralsScoreboardRequestConfigFiles")
+	util.AddNetworkString("ViralsScoreboardSendConfig")
 
 	include("autorun/server/sv_viralsscoreboard.lua")
 

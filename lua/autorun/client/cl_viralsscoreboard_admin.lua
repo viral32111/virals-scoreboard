@@ -16,7 +16,7 @@ limitations under the License.
 
 if ( SERVER ) then return end
 
-ViralsScoreboard.UserGroups = {
+UserGroups = {
 	"superadmin",
 	"admin",
 	"operator",
@@ -62,7 +62,7 @@ net.Receive( "ViralsScoreboardAdmin", function()
 	
 	local ViralsScoreboardSpecialsLabel = vgui.Create( "DLabel", ViralsScoreboardSpecialsBase )
 	ViralsScoreboardSpecialsLabel:SetPos( 10, 30 )
-	ViralsScoreboardSpecialsLabel:SetText( "{Hostname} - Gets the server name\n{Map} - Gets the current map name\n{IP} - Gets the server IP\n{MaxPlayers} - Gets server slots\n{Players} - Gets player count\n{Gamemode} - Gets the gamemode\n\nMisc config isn't working.\nGroups config isn't working.\nPer-User config isn't working.\n\nFor font changes to be applied the\nserver needs to reboot.\n\nFor Group and Per-User configs use\nthe main config file." )
+	ViralsScoreboardSpecialsLabel:SetText( "{Hostname} - Gets the server name\n{Map} - Gets the current map name\n{IP} - Gets the server IP\n{MaxPlayers} - Gets server slots\n{Players} - Gets player count\n{Gamemode} - Gets the gamemode\n\nMisc config isn't working.\nGroups config isn't working.\nPer-User config isn't working.\n\nFor any changes to be applied the\nserver needs to reboot.\n\nFor Group and Per-User configs use\nthe main config file." )
 	ViralsScoreboardSpecialsLabel:SizeToContents()
 
 	--[[-------------------------------------------------------------------------
@@ -187,7 +187,7 @@ net.Receive( "ViralsScoreboardAdmin", function()
 	ViralsScoreboardAdminLayout:SetBackgroundColor( Color( 0, 100, 100 ) )
 	ViralsScoreboardAdminLayout:MakeDroppable( "ViralsScoreboardAdminLayout" )
 
-	for k, v in pairs( ViralsScoreboard.UserGroups ) do
+	for k, v in pairs( UserGroups ) do
 		ViralsScoreboardAdminLayout:Add( Label( v .. " [" .. k .. "]" ) )
 	end
 

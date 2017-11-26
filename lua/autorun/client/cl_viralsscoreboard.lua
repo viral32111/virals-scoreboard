@@ -20,15 +20,6 @@ include("autorun/shared/sh_viralsscoreboard.lua")
 --[[-------------------------------------------------------------------------
 Fonts
 ---------------------------------------------------------------------------]]
---[[net.Start("ViralsScoreboardRequestConfigFiles")
-net.SendToServer()
-net.Receive( "ViralsScoreboardRequestConfigFiles", function()
-	Config1 = net.ReadTable()
-	DisplayConfig1 = net.ReadTable()
-	GroupConfig1 = net.ReadTable()
-	UserConfig1 = net.ReadTable()
-end )]]
-
 surface.CreateFont("ViralsScoreboardTitle", {
 	font = ViralsScoreboard.TitleFont or "Helvetica",
 	size = 40,
@@ -54,19 +45,29 @@ surface.CreateFont("ViralsScoreboardAuthor", {
 })
 
 --[[-------------------------------------------------------------------------
+Recieve all the info
+---------------------------------------------------------------------------]]
+net.Receive( "ViralsScoreboardSendConfig", function()
+	Config1 = net.ReadTable()
+	DisplayConfig1 = net.ReadTable()
+	GroupConfig1 = net.ReadTable()
+	UserConfig1 = net.ReadTable()
+end )
+
+--[[-------------------------------------------------------------------------
 Scoreboard
 ---------------------------------------------------------------------------]]
 local DefaultRowColor = Color( 165, 165, 165 )
 local ColorDifference = 30
 
 function ViralsScoreboard:show()
-	net.Start("ViralsScoreboardRequestConfigFiles")
+	--[[net.Start("ViralsScoreboardRequestConfigFiles")
 	net.SendToServer()
 	net.Receive( "ViralsScoreboardRequestConfigFiles", function()
 		Config1 = net.ReadTable()
 		DisplayConfig1 = net.ReadTable()
 		GroupConfig1 = net.ReadTable()
-		UserConfig1 = net.ReadTable()
+		UserConfig1 = net.ReadTable()]]
 
 		local Players = player.GetAll()
 
@@ -268,14 +269,12 @@ function ViralsScoreboard:show()
 		function ViralsScoreboard:hide()
 			gui.EnableScreenClicker( false )
 
+			hook.Remove( "KeyPress", "ViralsScoreboardMouse" )
+
 			ScoreboardMainBase:Remove()
 			ScoreboardTitleBase:Remove()
 			ScoreboardAuthor:Remove()
-
-			hook.Remove( "KeyPress", "ViralsScoreboardMouse" )
 		end
-
-	end )
 end
 
 --[[-------------------------------------------------------------------------

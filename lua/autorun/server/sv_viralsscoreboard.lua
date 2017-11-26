@@ -56,8 +56,8 @@ end )
 --[[-------------------------------------------------------------------------
 Return the request for files
 ---------------------------------------------------------------------------]]
-net.Receive( "ViralsScoreboardRequestConfigFiles", function( len, ply )
-	net.Start( "ViralsScoreboardRequestConfigFiles" )
+hook.Add( "PlayerInitialSpawn", "ViralsScoreboardSendConfig", function( ply )
+	net.Start( "ViralsScoreboardSendConfig" )
 		net.WriteTable( string.Explode( "\n", file.Read( "viralsscoreboard_config.txt" ) ) )
 		net.WriteTable( string.Explode( ";", file.Read( "viralsscoreboard_displayconfig.txt" ) ) )
 		net.WriteTable( string.Explode( "\n", file.Read( "viralsscoreboard_groupconfig.txt" ) ) )
