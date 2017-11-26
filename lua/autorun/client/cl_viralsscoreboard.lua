@@ -20,6 +20,15 @@ include("autorun/shared/sh_viralsscoreboard.lua")
 --[[-------------------------------------------------------------------------
 Fonts
 ---------------------------------------------------------------------------]]
+--[[net.Start("ViralsScoreboardRequestConfigFiles")
+net.SendToServer()
+net.Receive( "ViralsScoreboardRequestConfigFiles", function()
+	Config1 = net.ReadTable()
+	DisplayConfig1 = net.ReadTable()
+	GroupConfig1 = net.ReadTable()
+	UserConfig1 = net.ReadTable()
+end )]]
+
 surface.CreateFont("ViralsScoreboardTitle", {
 	font = ViralsScoreboard.TitleFont or "Helvetica",
 	size = 40,
@@ -55,10 +64,9 @@ function ViralsScoreboard:show()
 	net.SendToServer()
 	net.Receive( "ViralsScoreboardRequestConfigFiles", function()
 		Config1 = net.ReadTable()
+		DisplayConfig1 = net.ReadTable()
 		GroupConfig1 = net.ReadTable()
 		UserConfig1 = net.ReadTable()
-
-		gui.EnableScreenClicker( true )
 
 		local Players = player.GetAll()
 
@@ -113,8 +121,8 @@ function ViralsScoreboard:show()
 		Scoreboard Title
 		---------------------------------------------------------------------------]]
 		local ScoreboardTitleBase = vgui.Create( "DPanel" )
-		ScoreboardTitleBase:SetSize( 700, 80 )
-		ScoreboardTitleBase:SetPos( ScrW()/2-(700/2), 10 )
+		ScoreboardTitleBase:SetSize( 1200, 100 )
+		ScoreboardTitleBase:SetPos( ScrW()/2-(1200/2), 10 )
 		function ScoreboardTitleBase:Paint( w, h )
 			draw.RoundedBox( 0, 0, 0, w, h, Color( 255, 255, 255, 0 ) )
 
@@ -188,7 +196,7 @@ function ViralsScoreboard:show()
 				draw.DrawText( NameText, "ViralsScoreboardPlayerRowText", 50, 8, NameColor, TEXT_ALIGN_LEFT )
 			
 				-- Group
-				if ( ViralsScoreboard.DisplayGroups ) then
+				if ( DisplayConfig1[2] == "1" ) then
 					if ( ViralsScoreboard.GroupNames[ v:GetUserGroup() ] == nil ) then
 						UserGroupName = string.upper( string.sub( v:GetUserGroup(), 0, 1 ) ) .. string.sub( v:GetUserGroup(), 2 )
 					else
@@ -200,25 +208,25 @@ function ViralsScoreboard:show()
 				end
 				
 				-- Kills
-				if ( ViralsScoreboard.DisplayKills ) then
+				if ( DisplayConfig1[3] == "1" ) then
 					draw.DrawText( tostring( v:Frags() ), "ViralsScoreboardPlayerRowText", 571, 9, Color( 50, 50, 50, 200 ), TEXT_ALIGN_CENTER )
 					draw.DrawText( tostring( v:Frags() ), "ViralsScoreboardPlayerRowText", 570, 8, NameColor, TEXT_ALIGN_CENTER )
 				end
 
 				-- Deaths
-				if ( ViralsScoreboard.DisplayDeaths ) then
+				if ( DisplayConfig1[4] == "1" ) then
 					draw.DrawText( tostring( v:Deaths() ), "ViralsScoreboardPlayerRowText", 621, 9, Color( 50, 50, 50, 200 ), TEXT_ALIGN_CENTER )
 					draw.DrawText( tostring( v:Deaths() ), "ViralsScoreboardPlayerRowText", 620, 8, NameColor, TEXT_ALIGN_CENTER )
 				end
 
 				-- Ping
-				if ( ViralsScoreboard.DisplayPing ) then
+				if ( DisplayConfig1[5] == "1" ) then
 					draw.DrawText( tostring( v:Ping() ), "ViralsScoreboardPlayerRowText", 671, 9, Color( 50, 50, 50, 200 ), TEXT_ALIGN_CENTER )
 					draw.DrawText( tostring( v:Ping() ), "ViralsScoreboardPlayerRowText", 670, 8, NameColor, TEXT_ALIGN_CENTER )
 				end
 			end
 
-			if ( ViralsScoreboard.DisplayAvatar ) then
+			if ( DisplayConfig1[1] == "1" ) then
 				ScoreboardMainRowsPlayerPanelAvatarButton = ScoreboardMainRows:Add( "DButton" )
 				ScoreboardMainRowsPlayerPanelAvatarButton:SetParent( ScoreboardMainRowsPlayerPanel )
 				ScoreboardMainRowsPlayerPanelAvatarButton:Dock( NODOCK )
@@ -244,9 +252,15 @@ function ViralsScoreboard:show()
 		function ScoreboardAuthor:Paint( w, h )
 			draw.RoundedBox( 0, 0, 0, w, h, Color( 255, 255, 255, 0 ) )
 
-			draw.DrawText( "Copyright 2017 viral32111", "ViralsScoreboardAuthor", w/2+16, 0, Color( 50, 50, 50, 200 ), TEXT_ALIGN_RIGHT )
+			draw.DrawText( "Copyright 2017 viral32111", "ViralsScoreboardAuthor", w/2+16, 1, Color( 50, 50, 50, 200 ), TEXT_ALIGN_RIGHT )
 			draw.DrawText( "Copyright 2017 viral32111", "ViralsScoreboardAuthor", w/2+15, 0, Color( 255, 255, 255 ), TEXT_ALIGN_RIGHT )
 		end
+
+		hook.Add( "KeyPress", "ViralsScoreboardMouse", function( ply, key )
+			if ( key == IN_ATTACK or key == IN_ATTACK2 or key == IN_USE ) then
+				gui.EnableScreenClicker( true )
+			end
+		end )
 
 		--[[-------------------------------------------------------------------------
 		Scoreboard Hide Function
@@ -257,6 +271,8 @@ function ViralsScoreboard:show()
 			ScoreboardMainBase:Remove()
 			ScoreboardTitleBase:Remove()
 			ScoreboardAuthor:Remove()
+
+			hook.Remove( "KeyPress", "ViralsScoreboardMouse" )
 		end
 
 	end )

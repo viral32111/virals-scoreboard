@@ -21,38 +21,12 @@ ViralsScoreboard.GroupImmunity = {} -- Don't Touch
 ViralsScoreboard.UserBackgroundColor = {} -- Don't Touch
 ViralsScoreboard.UserNameColor = {} -- Don't Touch
 
---[[-------------------------------------------------------------------------
-New Config
----------------------------------------------------------------------------]]
-ViralsScoreboard.UserGroups = {
-	"superadmin",
-	"admin",
-	"operator",
-	"user"
-}
 
 --[[-------------------------------------------------------------------------
-Display Config
+This is the config file for anything that doesn't work
+in the menu at the moment.
 ---------------------------------------------------------------------------]]
-ViralsScoreboard.DisplayAvatar = true -- Display the users avatar
-ViralsScoreboard.DisplayGroups = true -- Display the users group
-ViralsScoreboard.DisplayKills = true -- Display the users kills
-ViralsScoreboard.DisplayDeaths = true -- Display the users deaths
-ViralsScoreboard.DisplayPing = true -- Display the users ping
 
---[[-------------------------------------------------------------------------
-Text Config
----------------------------------------------------------------------------]]
---ViralsScoreboard.Title = GetHostName() -- If you leave this blank it will use the servers hostname as the title, Use a space for none
---ViralsScoreboard.SubTitle = game.GetMap() -- Good place to put a website link, if you leave this blank it will use the servers current map, Use a space for none
-
---ViralsScoreboard.DeadAppend = "(Dead)" -- Text that is added to the end of a players name when there dead, Leave blank for none
-
---[[-------------------------------------------------------------------------
-Color Config
----------------------------------------------------------------------------]]
---ViralsScoreboard.DeadColor = Color( 255, 200, 200 ) -- Name color when a user is dead
---ViralsScoreboard.AliveColor = Color( 255, 255, 255 ) -- Name color when the user is alive
 
 --[[-------------------------------------------------------------------------
 Group Config

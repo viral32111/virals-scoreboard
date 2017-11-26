@@ -36,6 +36,10 @@ if ( SERVER ) then
 		file.Write( "viralsscoreboard_config.txt", "{Hostname};{Map}\n(Dead);255 200 200 255;255 255 255 255\nimmunity\nHelvetica;Helvetica;Helvetica" )
 	end
 
+	if not ( file.Exists( "viralsscoreboard_displayconfig.txt", "DATA" ) ) then
+		file.Write( "viralsscoreboard_displayconfig.txt", "1;1;1;1;1" )
+	end
+
 	if not ( file.Exists( "viralsscoreboard_groupconfig.txt", "DATA" ) ) then
 		file.Write( "viralsscoreboard_groupconfig.txt", "superadmin;admin;operator;user\nSuper Admin;Admin;Operator;Guest\nColor( 255, 145, 30 );Color( 255, 35, 61 );Color( 29, 221, 0 );Color( 0, 209, 221 )\n4;3;2;1" )
 	end

@@ -26,6 +26,7 @@ hook.Add("PlayerSay", "ViralsScoreboardChatCommand", function( ply, text, team )
 		if ( ply:IsSuperAdmin() ) then
 			net.Start( "ViralsScoreboardAdmin" )
 				net.WriteTable( string.Explode( "\n", file.Read( "viralsscoreboard_config.txt" ) ) )
+				net.WriteTable( string.Explode( ";", file.Read( "viralsscoreboard_displayconfig.txt" ) ) )
 				net.WriteTable( string.Explode( "\n", file.Read( "viralsscoreboard_groupconfig.txt" ) ) )
 				net.WriteTable( string.Explode( "\n", file.Read( "viralsscoreboard_userconfig.txt" ) ) )
 			net.Send( ply )
@@ -42,10 +43,12 @@ Save new configs
 ---------------------------------------------------------------------------]]
 net.Receive( "ViralsScoreboardAdmin", function()
 	local Config = net.ReadString()
+	local DisplayConfig = net.ReadString()
 	local GroupConfig = net.ReadString()
 	local UserConfig = net.ReadString()
 
 	file.Write( "viralsscoreboard_config.txt", Config )
+	file.Write( "viralsscoreboard_displayconfig.txt", DisplayConfig )
 	file.Write( "viralsscoreboard_groupconfig.txt", GroupConfig )
 	file.Write( "viralsscoreboard_userconfig.txt", UserConfig )
 end )
@@ -56,6 +59,7 @@ Return the request for files
 net.Receive( "ViralsScoreboardRequestConfigFiles", function( len, ply )
 	net.Start( "ViralsScoreboardRequestConfigFiles" )
 		net.WriteTable( string.Explode( "\n", file.Read( "viralsscoreboard_config.txt" ) ) )
+		net.WriteTable( string.Explode( ";", file.Read( "viralsscoreboard_displayconfig.txt" ) ) )
 		net.WriteTable( string.Explode( "\n", file.Read( "viralsscoreboard_groupconfig.txt" ) ) )
 		net.WriteTable( string.Explode( "\n", file.Read( "viralsscoreboard_userconfig.txt" ) ) )
 	net.Send( ply )
