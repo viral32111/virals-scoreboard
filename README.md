@@ -1,5 +1,4 @@
 # Viral's Scoreboard
-Revision: 001
 
 Viral's Scoreboard Version 1.0.4 for Garry's Mod 13
 
