@@ -83,7 +83,7 @@ net.Receive( "ViralsScoreboardAdmin", function()
 	end
 	ViralsScoreboardAdminTabs:AddSheet( "Colors", ColorsConfigTab, "icon16/palette.png" )
 
-	local GroupsConfigTab = vgui.Create( "DPanel", ViralsScoreboardAdminTabs )
+	--[[local GroupsConfigTab = vgui.Create( "DPanel", ViralsScoreboardAdminTabs )
 	function GroupsConfigTab:Paint( w, h )
 		draw.RoundedBox( 0, 0, 0,w, h, Color( 157, 160, 165 ) )
 	end
@@ -93,7 +93,7 @@ net.Receive( "ViralsScoreboardAdmin", function()
 	function PerUserConfigTab:Paint( w, h )
 		draw.RoundedBox( 0, 0, 0, w, h, Color( 157, 160, 165 ) )
 	end
-	ViralsScoreboardAdminTabs:AddSheet( "Per-User", PerUserConfigTab, "icon16/user_edit.png" )
+	ViralsScoreboardAdminTabs:AddSheet( "Per-User", PerUserConfigTab, "icon16/user_edit.png" )]]
 
 	local DisplayConfigTab = vgui.Create( "DPanel", ViralsScoreboardAdminTabs )
 	function DisplayConfigTab:Paint( w, h )
@@ -172,7 +172,7 @@ net.Receive( "ViralsScoreboardAdmin", function()
 	--[[-------------------------------------------------------------------------
 	Groups Config
 	---------------------------------------------------------------------------]]
-	local ViralsScoreboardAdminRanksLabel = vgui.Create( "DLabel", GroupsConfigTab )
+	--[[local ViralsScoreboardAdminRanksLabel = vgui.Create( "DLabel", GroupsConfigTab )
 	ViralsScoreboardAdminRanksLabel:SetPos( 10, 0 )
 	ViralsScoreboardAdminRanksLabel:SetText( "Rank Ordering and Configuration" )
 	ViralsScoreboardAdminRanksLabel:SizeToContents()
@@ -185,11 +185,11 @@ net.Receive( "ViralsScoreboardAdmin", function()
 	ViralsScoreboardAdminLayout:Dock( FILL )
 	ViralsScoreboardAdminLayout:SetPaintBackground( false )
 	ViralsScoreboardAdminLayout:SetBackgroundColor( Color( 0, 100, 100 ) )
-	ViralsScoreboardAdminLayout:MakeDroppable( "ViralsScoreboardAdminLayout" )
+	ViralsScoreboardAdminLayout:MakeDroppable( "ViralsScoreboardAdminLayout" )]]
 
-	for k, v in pairs( UserGroups ) do
+	--[[for k, v in pairs( UserGroups ) do
 		ViralsScoreboardAdminLayout:Add( Label( v .. " [" .. k .. "]" ) )
-	end
+	end]]
 
 	--[[-------------------------------------------------------------------------
 	Per-User Config

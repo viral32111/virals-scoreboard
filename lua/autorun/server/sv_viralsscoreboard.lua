@@ -15,15 +15,16 @@ limitations under the License.
 ---------------------------------------------------------------------------]]
 
 if ( CLIENT ) then return end
+include("autorun/shared/sh_viralsscoreboard.lua")
 
 --[[-------------------------------------------------------------------------
 Chat Command
 ---------------------------------------------------------------------------]]
-hook.Add("PlayerSay", "ViralsScoreboardChatCommand", function( ply, text, team )
+hook.Add("PlayerSay", "ViralsScoreboardChatCommand", function( ply, text )
 	local text = string.lower( text )
 
 	if ( text == "!viralsscoreboard" ) then
-		if ( ply:IsSuperAdmin() ) then
+		if ( table.HasValue( ViralsScoreboard.AdminGroups, ply:GetUserGroup() ) ) then
 			net.Start( "ViralsScoreboardAdmin" )
 				net.WriteTable( string.Explode( "\n", file.Read( "viralsscoreboard_config.txt" ) ) )
 				net.WriteTable( string.Explode( ";", file.Read( "viralsscoreboard_displayconfig.txt" ) ) )

@@ -14,23 +14,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ---------------------------------------------------------------------------]]
 
-local Version = "1.0.4"
+ViralsScoreboard = {}
+ViralsScoreboard.Version = 105
+ViralsScoreboard.Name = "Viral's Scoreboard"
+
+AddCSLuaFile("autorun/shared/sh_viralsscoreboard.lua")
+AddCSLuaFile("autorun/client/cl_viralsscoreboard.lua")
+AddCSLuaFile("autorun/client/cl_viralsscoreboard_admin.lua")
 
 if ( SERVER ) then
-	print("[Viral's Scoreboard] Loaded Version: " .. Version )
-
 	util.AddNetworkString("ViralsScoreboardAdmin")
 	util.AddNetworkString("ViralsScoreboardSendConfig")
-
-	include("autorun/server/sv_viralsscoreboard.lua")
-
-	AddCSLuaFile("autorun/shared/sh_viralsscoreboard.lua")
-	include("autorun/shared/sh_viralsscoreboard.lua")
-
-	AddCSLuaFile("autorun/client/cl_viralsscoreboard.lua")
-	include("autorun/client/cl_viralsscoreboard.lua")
-	AddCSLuaFile("autorun/client/cl_viralsscoreboard_admin.lua")
-	include("autorun/client/cl_viralsscoreboard_admin.lua")
 
 	if not ( file.Exists( "viralsscoreboard_config.txt", "DATA" ) ) then
 		file.Write( "viralsscoreboard_config.txt", "{Hostname};{Map}\n(Dead);255 200 200 255;255 255 255 255\nimmunity\nHelvetica;Helvetica;Helvetica" )
@@ -49,23 +43,23 @@ if ( SERVER ) then
 	end
 end
 
-if ( CLIENT ) then
-	print("Thanks for using Viral's Scoreboard, Created by viral32111!")
-end
-
-hook.Add( "PlayerConnect", "ViralsScoreboardVersionCheck", function()
-	http.Fetch( "https://raw.githubusercontent.com/viral32111/virals-scoreboard/master/VERSION.txt", function( body, len, headers, code )
-		local body = string.gsub( body, "\n", "" )
-		if ( body == Version ) then
-			print( "[Viral's Scoreboard] You are running the most recent version of Viral's Scoreboard!" )
-		elseif ( body == "404: Not Found" ) then
-			print( "[Viral's Scoreboard] Version page does not exist")
+hook.Add("PlayerConnect", ViralsScoreboard.Name .. "VersionCheck", function()
+	http.Fetch("https://raw.githubusercontent.com/viral32111/virals-scoreboard/master/README.md", function( LatestVersion )
+		local LatestVersion = tonumber( string.sub( LatestVersion, string.len( ViralsScoreboard.Name )+18, string.len( ViralsScoreboard.Name )+21 ) )
+		if ( LatestVersion == ViralsScoreboard.Version ) then
+			print("[" .. ViralsScoreboard.Name .. "] You are running the latest version!")
+		elseif ( LatestVersion > ViralsScoreboard.Version ) then
+			print("[" .. ViralsScoreboard.Name .. "] You are running an outdated version! (Latest: " .. LatestVersion .. ", Current: " .. ViralsScoreboard.Version .. ")")
+		elseif ( LatestVersion < ViralsScoreboard.Version ) then
+			print("[" .. ViralsScoreboard.Name .. "] You are running a future version, Please reinstall the addon. (Latest: " .. LatestVersion .. ", Current: " .. ViralsScoreboard.Version .. ")")
 		else
-			print( "[Viral's Scoreboard] You are using outdated version of Viral's Scoreboard! (Latest: " .. body .. ", Current: " .. Version .. ")" )
+			print("[" .. ViralsScoreboard.Name .. "] Failed to parse addon version! (Latest: " .. LatestVersion .. ", Current: " .. ViralsScoreboard.Version .. ")")
 		end
-	end,
-	function( error )
-		print( "[Viral's Scoreboard] Failed to get addon version! (" .. error .. ")" )
+	end, function( error )
+		print("[" .. ViralsScoreboard.Name .. "] Failed to get addon version! (" .. error .. ")")
 	end )
-	hook.Remove( "PlayerConnect", "ViralsScoreboardVersionCheck" )
+
+	hook.Remove("PlayerConnect", ViralsScoreboard.Name .. "VersionCheck")
 end )
+
+print("[" .. ViralsScoreboard.Name .. "] Loaded Version: " .. ViralsScoreboard.Version)

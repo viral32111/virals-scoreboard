@@ -38,12 +38,6 @@ surface.CreateFont("ViralsScoreboardPlayerRowText", {
 	weight = 600,
 })
 
-surface.CreateFont("ViralsScoreboardAuthor", {
-	font = "Helvetica",
-	size = 15,
-	weight = 600,
-})
-
 --[[-------------------------------------------------------------------------
 Recieve all the info
 ---------------------------------------------------------------------------]]
@@ -61,14 +55,6 @@ local DefaultRowColor = Color( 165, 165, 165 )
 local ColorDifference = 30
 
 function ViralsScoreboard:show()
-	--[[net.Start("ViralsScoreboardRequestConfigFiles")
-	net.SendToServer()
-	net.Receive( "ViralsScoreboardRequestConfigFiles", function()
-		Config1 = net.ReadTable()
-		DisplayConfig1 = net.ReadTable()
-		GroupConfig1 = net.ReadTable()
-		UserConfig1 = net.ReadTable()]]
-
 		local Players = player.GetAll()
 
 		-- Ordering
@@ -165,8 +151,8 @@ function ViralsScoreboard:show()
 						BackgroundColor = ViralsScoreboard.GroupColors[ v:GetUserGroup() ]
 						BackgroundColorBase = Color( ViralsScoreboard.GroupColors[ v:GetUserGroup() ].r - ColorDifference, ViralsScoreboard.GroupColors[ v:GetUserGroup() ].g - ColorDifference, ViralsScoreboard.GroupColors[ v:GetUserGroup() ].b - ColorDifference )
 					else
-						BackgroundColor = ViralsScoreboard.UserBackgroundColor[ v:SteamID() ]
-						BackgroundColorBase = Color( ViralsScoreboard.UserBackgroundColor[ v:SteamID() ].r - ColorDifference, ViralsScoreboard.UserBackgroundColor[ v:SteamID() ].g - ColorDifference, ViralsScoreboard.UserBackgroundColor[ v:SteamID() ].b - ColorDifference )
+						BackgroundColor = DefaultRowColor
+						BackgroundColorBase = Color( DefaultRowColor.r - 30, DefaultRowColor.g - 30, DefaultRowColor.b - 30 )
 					end
 				else
 					if ( ViralsScoreboard.GroupColors[ v:GetUserGroup() ] != nil ) then
@@ -188,9 +174,6 @@ function ViralsScoreboard:show()
 					NameColor = string.ToColor( string.Explode( ";", Config1[2] )[2] )
 					NameText = v:Nick() .. " " .. string.Explode( ";", Config1[2] )[1]
 				end
-				
-				-- ViralsScoreboard.UserNameColor[ v:SteamID() ] or Color( 255, 255, 255 )
-				-- ( Color( ViralsScoreboard.UserTextColor[ v:SteamID() ].r - ColorDifference, ViralsScoreboard.UserTextColor[ v:SteamID() ].g - ColorDifference, ViralsScoreboard.UserTextColor[ v:SteamID() ].b - ColorDifference ) ) or Color( 70, 70, 70, 200 )
 
 				-- Name
 				draw.DrawText( NameText, "ViralsScoreboardPlayerRowText", 51, 9, Color( 50, 50, 50, 200 ), TEXT_ALIGN_LEFT )
@@ -227,6 +210,25 @@ function ViralsScoreboard:show()
 				end
 			end
 
+			local ScoreboardOverlayButton = ScoreboardMainRows:Add( "DButton" )
+			ScoreboardOverlayButton:SetText("")
+			ScoreboardOverlayButton:SetParent( ScoreboardMainRowsPlayerPanel )
+			ScoreboardOverlayButton:SetPos( 20, 0 )
+			ScoreboardOverlayButton:SetSize( ScoreboardMainRows:GetWide()-200, 45 )
+			function ScoreboardOverlayButton:Paint( w, h )
+				draw.RoundedBoxEx( 4, 0, 0, w, h, Color( 0, 0, 0, 0 ) )
+			end
+			if ( table.HasValue( ViralsScoreboard.AdminGroups, LocalPlayer():GetUserGroup() ) ) then
+				function ScoreboardOverlayButton:DoClick()
+					SetClipboardText( v:SteamID() )
+					LocalPlayer():ChatPrint( v:Nick() .. "'s SteamID was copied to your clipboard.")
+				end
+				function ScoreboardOverlayButton:DoRightClick()
+					SetClipboardText("https://steamcommunity.com/profiles/" .. v:SteamID64() )
+					LocalPlayer():ChatPrint( v:Nick() .. "'s Profile Link was copied to your clipboard.")
+				end
+			end
+
 			if ( DisplayConfig1[1] == "1" ) then
 				ScoreboardMainRowsPlayerPanelAvatarButton = ScoreboardMainRows:Add( "DButton" )
 				ScoreboardMainRowsPlayerPanelAvatarButton:SetParent( ScoreboardMainRowsPlayerPanel )
@@ -245,18 +247,8 @@ function ViralsScoreboard:show()
 		end
 
 		--[[-------------------------------------------------------------------------
-		Author
+		Enable mouse when left/right/e
 		---------------------------------------------------------------------------]]
-		 ScoreboardAuthor = vgui.Create( "DPanel" )
-		ScoreboardAuthor:SetSize( 310, 20 )
-		ScoreboardAuthor:SetPos( ScrW()-178, ScrH()-20 )
-		function ScoreboardAuthor:Paint( w, h )
-			draw.RoundedBox( 0, 0, 0, w, h, Color( 255, 255, 255, 0 ) )
-
-			draw.DrawText( "Copyright 2017 viral32111", "ViralsScoreboardAuthor", w/2+16, 1, Color( 50, 50, 50, 200 ), TEXT_ALIGN_RIGHT )
-			draw.DrawText( "Copyright 2017 viral32111", "ViralsScoreboardAuthor", w/2+15, 0, Color( 255, 255, 255 ), TEXT_ALIGN_RIGHT )
-		end
-
 		hook.Add( "KeyPress", "ViralsScoreboardMouse", function( ply, key )
 			if ( key == IN_ATTACK or key == IN_ATTACK2 or key == IN_USE ) then
 				gui.EnableScreenClicker( true )
@@ -273,7 +265,6 @@ function ViralsScoreboard:show()
 
 			ScoreboardMainBase:Remove()
 			ScoreboardTitleBase:Remove()
-			ScoreboardAuthor:Remove()
 		end
 end
 

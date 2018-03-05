@@ -49,13 +49,18 @@ ViralsScoreboard.GroupImmunity["operator"] = 2
 ViralsScoreboard.GroupImmunity["admin"] = 3
 ViralsScoreboard.GroupImmunity["superadmin"] = 4
 
+ViralsScoreboard.AdminGroups = {
+	"superadmin",
+	"admin"
+}
+
 --[[-------------------------------------------------------------------------
 User Config (Use this if you want certain users to have custom colors, Good option for donators)
 ---------------------------------------------------------------------------]]
 ViralsScoreboard.EnableUserConfig = false -- True enables user config, False disables (Users not here will use the group color configs)
 	-- Copy and paste the code below for adding custom user colors, just replace 'STEAM_0:00000000' with the users SteamID
-	ViralsScoreboard.UserBackgroundColor["STEAM_0:1:104283773"] = Color( 100, 160, 61 ) -- Row backgroud color
-	ViralsScoreboard.UserNameColor["STEAM_0:1:104283773"] = Color( 0, 255, 0 ) -- Row text color
+	ViralsScoreboard.UserBackgroundColor["STEAM_0:00000000"] = Color( 100, 160, 61 ) -- Row backgroud color
+	ViralsScoreboard.UserNameColor["STEAM_0:00000000"] = Color( 0, 255, 0 ) -- Row text color
 
 --[[-------------------------------------------------------------------------
 Sorting
