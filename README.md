@@ -1,5 +1,5 @@
 # Viral's Scoreboard
-#### Version: 105
+#### Version: 106
 
 This is a simple Scoreboard addon for Garry's Mod.
 

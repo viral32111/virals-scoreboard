@@ -62,7 +62,7 @@ net.Receive( "ViralsScoreboardAdmin", function()
 	
 	local ViralsScoreboardSpecialsLabel = vgui.Create( "DLabel", ViralsScoreboardSpecialsBase )
 	ViralsScoreboardSpecialsLabel:SetPos( 10, 30 )
-	ViralsScoreboardSpecialsLabel:SetText( "{Hostname} - Gets the server name\n{Map} - Gets the current map name\n{IP} - Gets the server IP\n{MaxPlayers} - Gets server slots\n{Players} - Gets player count\n{Gamemode} - Gets the gamemode\n\nMisc config isn't working.\nGroups config isn't working.\nPer-User config isn't working.\n\nFor any changes to be applied the\nserver needs to reboot.\n\nFor Group and Per-User configs use\nthe main config file." )
+	ViralsScoreboardSpecialsLabel:SetText( "These can be used in the 'Text' tab.\n{Hostname} - Gets the server name\n{Map} - Gets the current map name\n{IP} - Gets the server IP\n{MaxPlayers} - Gets server slots\n{Players} - Gets player count\n{Gamemode} - Gets the gamemode\n\nFor any changes to be applied the\nserver needs to reboot.\n\nFor Group, Misc, Team and Per-User\nconfigs use the main config file." )
 	ViralsScoreboardSpecialsLabel:SizeToContents()
 
 	--[[-------------------------------------------------------------------------
@@ -101,11 +101,11 @@ net.Receive( "ViralsScoreboardAdmin", function()
 	end
 	ViralsScoreboardAdminTabs:AddSheet( "Display", DisplayConfigTab, "icon16/eye.png" )
 
-	local MiscConfigTab = vgui.Create( "DPanel", ViralsScoreboardAdminTabs )
+	--[[local MiscConfigTab = vgui.Create( "DPanel", ViralsScoreboardAdminTabs )
 	function MiscConfigTab:Paint( w, h )
 		draw.RoundedBox( 0, 0, 0, w, h, Color( 157, 160, 165 ) )
 	end
-	ViralsScoreboardAdminTabs:AddSheet( "Misc", MiscConfigTab, "icon16/cog.png" )
+	ViralsScoreboardAdminTabs:AddSheet( "Misc", MiscConfigTab, "icon16/cog.png" )]]
 
 	--[[-------------------------------------------------------------------------
 	Text Config
@@ -233,7 +233,7 @@ net.Receive( "ViralsScoreboardAdmin", function()
 	Misc Config
 	---------------------------------------------------------------------------]]
 	-- Title
-	local TitleFont = vgui.Create( "DLabel", MiscConfigTab )
+	--[[local TitleFont = vgui.Create( "DLabel", MiscConfigTab )
 	TitleFont:SetPos( 10, 0 )
 	TitleFont:SetText( "Title Font (Reboot required for change)" )
 	TitleFont:SizeToContents()
@@ -260,7 +260,7 @@ net.Receive( "ViralsScoreboardAdmin", function()
 	local PlayerRowFontText = vgui.Create( "DTextEntry", MiscConfigTab )
 	PlayerRowFontText:SetPos( 10, 107 )
 	PlayerRowFontText:SetSize( 350, 20 )
-	PlayerRowFontText:SetText( string.Explode( ";", Config[4] )[3] )
+	PlayerRowFontText:SetText( string.Explode( ";", Config[4] )[3] )]]
 
 	--[[-------------------------------------------------------------------------
 	Save Button
@@ -274,10 +274,10 @@ net.Receive( "ViralsScoreboardAdmin", function()
 		local DisplayConfigOptions = string.Replace( DisplayConfigOptions, "false", "0" )
 
 		net.Start("ViralsScoreboardAdmin")
-			net.WriteString( ViralsScoreboardAdminTitleTextEntry:GetValue() .. ";" .. ViralsScoreboardAdminSubtitleTextEntry:GetValue() .. "\n" .. ViralsScoreboardAdminDeadAppendTextEntry:GetValue() .. ";" .. tostring( Color( ViralsScoreboardAdminDeadColorMixer:GetColor().r, ViralsScoreboardAdminDeadColorMixer:GetColor().g, ViralsScoreboardAdminDeadColorMixer:GetColor().b ) ) .. ";" .. tostring( Color( ViralsScoreboardAdminAliveColorMixer:GetColor().r, ViralsScoreboardAdminAliveColorMixer:GetColor().g, ViralsScoreboardAdminAliveColorMixer:GetColor().b ) ) .. "\nimmunity\n" .. TitleFontText:GetValue() .. ";" .. SubTitleFontText:GetValue() .. ";" .. PlayerRowFontText:GetValue() )
+			net.WriteString( ViralsScoreboardAdminTitleTextEntry:GetValue() .. ";" .. ViralsScoreboardAdminSubtitleTextEntry:GetValue() .. "\n" .. ViralsScoreboardAdminDeadAppendTextEntry:GetValue() .. ";" .. tostring( Color( ViralsScoreboardAdminDeadColorMixer:GetColor().r, ViralsScoreboardAdminDeadColorMixer:GetColor().g, ViralsScoreboardAdminDeadColorMixer:GetColor().b ) ) .. ";" .. tostring( Color( ViralsScoreboardAdminAliveColorMixer:GetColor().r, ViralsScoreboardAdminAliveColorMixer:GetColor().g, ViralsScoreboardAdminAliveColorMixer:GetColor().b ) ) )
 			net.WriteString( DisplayConfigOptions )
-			net.WriteString( "superadmin;admin;operator;user\nSuper Admin;Admin;Operator;Guest\nColor( 255, 145, 30 );Color( 255, 35, 61 );Color( 29, 221, 0 );Color( 0, 209, 221 )\n4;3;2;1" )
-			net.WriteString( "false;\nSTEAM_0:1:104283773;Color( 100, 160, 61 );STEAM_0:1:104283773;Color( 0, 255, 0 )" )
+			--net.WriteString( "superadmin;admin;operator;user\nSuper Admin;Admin;Operator;Guest\nColor( 255, 145, 30 );Color( 255, 35, 61 );Color( 29, 221, 0 );Color( 0, 209, 221 )\n4;3;2;1" )
+			--net.WriteString( "false;\nSTEAM_0:1:104283773;Color( 100, 160, 61 );STEAM_0:1:104283773;Color( 0, 255, 0 )" )
 		net.SendToServer()
 		ViralsScoreboardAdminBase:Close()
 	end

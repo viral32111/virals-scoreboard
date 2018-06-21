@@ -27,6 +27,12 @@ This is the config file for anything that doesn't work
 in the menu at the moment.
 ---------------------------------------------------------------------------]]
 
+--[[-------------------------------------------------------------------------
+Should the scoreboard use Group Configuration or Team Configuration?
+Rank = 1
+Team = 2
+---------------------------------------------------------------------------]]
+ViralsScoreboard.Mode = 1
 
 --[[-------------------------------------------------------------------------
 Group Config
@@ -55,6 +61,11 @@ ViralsScoreboard.AdminGroups = {
 }
 
 --[[-------------------------------------------------------------------------
+Team Configuration
+---------------------------------------------------------------------------]]
+
+
+--[[-------------------------------------------------------------------------
 User Config (Use this if you want certain users to have custom colors, Good option for donators)
 ---------------------------------------------------------------------------]]
 ViralsScoreboard.EnableUserConfig = false -- True enables user config, False disables (Users not here will use the group color configs)
@@ -63,12 +74,8 @@ ViralsScoreboard.EnableUserConfig = false -- True enables user config, False dis
 	ViralsScoreboard.UserNameColor["STEAM_0:00000000"] = Color( 0, 255, 0 ) -- Row text color
 
 --[[-------------------------------------------------------------------------
-Sorting
+How should the scoreboard order players? (Immunity only works with Group Config Mode)
 ---------------------------------------------------------------------------]]
-ViralsScoreboard.AllowDragDrop = false -- This allows users to drag and drop player rows, this is completley clientside and resets when the scoreboard is closed (So its pretty much pointless)
-
--- ViralsScoreboard.ReverseOrder = false -- true for Decending order, false for Acending order
-
 ViralsScoreboard.Sort = "immunity" -- immunity, ping, deaths, kills
 
 --[[-------------------------------------------------------------------------

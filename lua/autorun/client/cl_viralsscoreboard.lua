@@ -44,8 +44,8 @@ Recieve all the info
 net.Receive( "ViralsScoreboardSendConfig", function()
 	Config1 = net.ReadTable()
 	DisplayConfig1 = net.ReadTable()
-	GroupConfig1 = net.ReadTable()
-	UserConfig1 = net.ReadTable()
+	--GroupConfig1 = net.ReadTable()
+	--UserConfig1 = net.ReadTable()
 end )
 
 --[[-------------------------------------------------------------------------
