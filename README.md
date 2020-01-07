@@ -13,4 +13,4 @@ For developers, This includes 2 global variables: `ViralsScoreboard.Version` (Re
 
 [Workshop Version](https://steamcommunity.com/sharedfiles/filedetails/?id=1154615469)
 
-###### [Copyright 2017-2019 viral32111](LICENCE.md)
+###### [Copyright 2017-2020 viral32111](LICENCE.md)
